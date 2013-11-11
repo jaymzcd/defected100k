@@ -79,10 +79,17 @@ def generate(tiles, mask):
 
             if tile_score > 128:
                 # For 'white' tiles use a bright version
-                image = ImageEnhance.Brightness(src_tile).enhance(1.33)
+                try:
+                    image = ImageEnhance.Brightness(src_tile).enhance(1.33)
+                except ValueError:
+                    # Might get a conversion error, skip for now and use as is
+                    image = src_tile
             else:
                 # For dark tiles use a darkened version
-                image = ImageEnhance.Brightness(src_tile).enhance(0.37)
+                try:
+                    image = ImageEnhance.Brightness(src_tile).enhance(0.37)
+                except ValueError:
+                    image = src_tile
                 # If we have dark tiles use black and white version
                 # image = src_tile.convert('L')
 
