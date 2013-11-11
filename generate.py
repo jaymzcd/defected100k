@@ -57,7 +57,6 @@ def generate(tiles, mask):
     except OSError:
         pass
 
-
     def _get_tile():
         """
             Repeatedly try and return a valid PIL image
@@ -72,9 +71,6 @@ def generate(tiles, mask):
 
     for row_num, row in enumerate(pixels):
         row_image = Image.new('RGB', (tile_size[0] * per_side, tile_size[1]))
-
-        if row_num < 105:
-            continue
 
         for num, pixel in enumerate(row):
 
@@ -96,7 +92,8 @@ def generate(tiles, mask):
 
         image_name = 'tiles/row_%03d.png' % row_num
         row_image.save(image_name)
-        print image_name
+
+        print "Output %s" % image_name
 
 
 if __name__ == '__main__':
