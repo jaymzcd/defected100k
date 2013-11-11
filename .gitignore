@@ -1,5 +1,7 @@
 avatars/
+map/
 tiles/
+
 *.py[cod]
 
 # C extensions

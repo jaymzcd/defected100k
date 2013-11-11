@@ -32,3 +32,8 @@ can be done in batches to further ease the requirements:
     montage row_${DIG}*.png -tile 1x -geometry +0+0 out_$dig_0-9.png;
 
 This would create a full-scale combined image of `row_110.png` - `row_119.png`.
+
+## Tile Cutting
+
+A GPL script to generate tiles at zoom levels can be found 
+[on Google Code](https://code.google.com/p/googletilecutter/)
