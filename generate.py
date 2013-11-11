@@ -2,8 +2,11 @@
 
 import argparse
 import os
+import MySQLdb as mdb
+
 from glob import iglob
 from PIL import Image, ImageEnhance
+
 
 
 def read_mask(mask_path):
@@ -52,6 +55,10 @@ def generate(tiles, mask):
     per_side = 317
     tile_size = (48, 48)
 
+    sql_script = open('map/coords.sql', 'w')
+    con = mdb.connect('localhost', 'root', os.environ['DBPASS'], 'def100k');
+    cur = con.cursor()
+
     try:
         os.mkdir('tiles')
     except OSError:
@@ -64,9 +71,22 @@ def generate(tiles, mask):
 
         tile = tiles.next()
         try:
-            return Image.open(tile)
+            i = Image.open(tile)
+
+            # If the image is indexed then when PIL converts to RGB (for brightness)
+            # a bug means it'll return an all white image. This is recent (like 09/13)
+            # http://stackoverflow.com/questions/19892919/pil-converting-an-image-with-mode-i-to-rgb-results-in-a-fully-white-image
+            # So lets log that for now and move on with a new image
+
+            mode = i.mode
+            if mode != 'I':
+                return i, tile
+            else:
+                print "[Skipping] IndexedMode: %s" % tile
+                return _get_tile()
+
         except IOError:
-            print "[Skipping] Error opening %s" % tile
+            print "[Skipping] IOError: %s" % tile
             return _get_tile()
 
     for row_num, row in enumerate(pixels):
@@ -75,7 +95,7 @@ def generate(tiles, mask):
         for num, pixel in enumerate(row):
 
             tile_score = score(pixel)
-            src_tile = _get_tile()
+            src_tile, src_name = _get_tile()
 
             if tile_score > 128:
                 # For 'white' tiles use a bright version
@@ -96,11 +116,24 @@ def generate(tiles, mask):
             # note we are only shifting across! each row is output individually
             # rather than one giant image
             row_image.paste(image, (num * tile_size[0], 0))
+            # Store the tile location for this so we can look it up and add a marker
+            # easily on the finished map. Note there's
+            stmt = """
+                UPDATE images SET xpos=%d, ypos=%d WHERE filename="%s";
+            """ % (num, row_num, src_name.replace('avatars/', ''))
+
+            sql_script.write(stmt)
+            cur.execute(stmt)
+            con.commit()
+            print stmt
 
         image_name = 'tiles/row_%03d.png' % row_num
         row_image.save(image_name)
 
         print "Output %s" % image_name
+
+    sql_script.close()
+    con.close()
 
 
 if __name__ == '__main__':
