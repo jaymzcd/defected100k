@@ -35,5 +35,14 @@ This would create a full-scale combined image of `row_110.png` - `row_119.png`.
 
 ## Tile Cutting
 
-A GPL script to generate tiles at zoom levels can be found 
-[on Google Code](https://code.google.com/p/googletilecutter/)
+### Attempt 1
+
+A GPL script to generate tiles at zoom levels can be found
+[on Google Code](https://code.google.com/p/googletilecutter/). This generates
+various zoom levels in the form z{Z}x{X}y{Y}.png. The map.html file then loads
+these in as a maps application. This code is pretty much verbatim from the demo
+on the [Google site](https://developers.google.com/maps/documentation/javascript/maptypes#ImageMapTypes).
+
+### Attempt 2
+
+Using [MapTiler](http://www.maptiler.org/)

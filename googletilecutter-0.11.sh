@@ -206,7 +206,7 @@ for ((i=0; i<files; i++)) do
         if [ "$compress" == "advpng" ]; then
             reduction=`advpng -4 -z $tile | sed -ne "s/.* \([0-9]*\)% .*/\1/p"`
             reduction=$((100-$reduction))
-        elif [ $compress == "pngcrush" ]; then
+        elif [ "$compress" == "pngcrush" ]; then
             crushout=`mktemp`
             reduction=`pngcrush -brute $tile $crushout | sed -ne "s/.*(\([0-9\.]*\)%.*/\1/p"`
             if [ -f $crushout ]; then
