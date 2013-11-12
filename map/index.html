@@ -2,135 +2,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml>"
 <head>
 	<title>We Are 100k &mdash; Defected Records</title>
+
+    <meta name="description" content="Defected Records is a UK record label specialising in house music recordings, events, artist booking and management.">
+    <meta name="author" content="U-DOX Brand Development, Hoxton N1 6NU">
+
+    <meta property="og:title" content="Defected Records 100k">
+    <meta property="og:description" content="Defected Records is a UK record label specialising in house music recordings, events, artist booking and management.">
+    <meta property="og:image" content="http://defected.com/static/img/global/placeholder.png">
+
 	<meta http-equiv='imagetoolbar' content='no'/>
 	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
-	<style type="text/css"> v\:* {behavior:url(#default#VML);}
-	html, body { overflow: hidden; padding: 0; height: 100%; width: 100%; font-family: 'Lucida Grande',Geneva,Arial,Verdana,sans-serif; }
-	body { margin: 0; background: #111; }
-	h1 { margin: 0; padding: 6px; border:0; font-size: 20pt; }
-	#map { height: 100%; }
-
-	#mediabox {
-		position: absolute;
-		top: 20px;
-		right: 20px;
-		width: 220px;
-		height: 50px;
-		z-index: 1000;
-	}
-
-	#twitter-widget-0 {
-		width: 110px;
-		float: left;
-	}
-
-	#btn-findme {
-		width: 100%;
-		margin-bottom: 10px;
-	}
-
-	.btn, .modal-content {
-		border-radius: 0;
-	}
-
-	#fblike {
-		width: 110px;
-		float: right;
-	}
-
-	</style>
+	<link href="css/styles.css" rel="stylesheet">
 	<script src="http://www.openlayers.org/api/2.7/OpenLayers.js"></script>
 	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
-	<script type="text/javascript">
-
-var map;
-var mapBounds = new OpenLayers.Bounds( 0.0, -14880.0, 15216.0, 0.0);
-var mapMinZoom = 0;
-var mapMaxZoom = 6;
-
-var markers;
-var size = new OpenLayers.Size(21,25);
-var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
-var icon = new OpenLayers.Icon('http://www.openlayers.org/dev/img/marker.png', size, offset);
-
-// avoid pink tiles
-OpenLayers.IMAGE_RELOAD_ATTEMPTS = 3;
-OpenLayers.Util.onImageLoadErrorColor = "transparent";
-
-function init(){
-	var options = {
-		controls: [],
-		maxExtent: new OpenLayers.Bounds(  0.0, -14880.0, 15216.0, 0.0 ),
-		maxResolution: 64.000000,
-		numZoomLevels: 7
-	};
-	map = new OpenLayers.Map('map', options);
-
-	var layer = new OpenLayers.Layer.TMS( "TMS Layer","",
-		{  url: '', serviceVersion: '.', layername: '.', alpha: true,
-		type: 'png', getURL: overlay_getTileURL
-	});
-	map.addLayer(layer);
-	map.zoomToExtent( mapBounds );
-
-	map.addControl(new OpenLayers.Control.PanZoomBar());
-	map.addControl(new OpenLayers.Control.MousePosition());
-	map.addControl(new OpenLayers.Control.MouseDefaults());
-	map.addControl(new OpenLayers.Control.KeyboardDefaults());
-
-	markers = new OpenLayers.Layer.Markers("Markers");
-	map.addLayer(markers);
-}
-
-function overlay_getTileURL(bounds) {
-	var res = this.map.getResolution();
-	var x = Math.round((bounds.left - this.maxExtent.left) / (res * this.tileSize.w));
-	var y = Math.round((bounds.bottom - this.maxExtent.bottom) / (res * this.tileSize.h));
-	var z = this.map.getZoom();
-	if (x >= 0 && y >= 0) {
-		return this.url + "weare/" + z + "/" + x + "/" + y + "." + this.type;
-	} else {
-		return "http://www.maptiler.org/img/none.png";
-	}
-}
-
-function getWindowHeight() {
-	if (self.innerHeight) return self.innerHeight;
-	if (document.documentElement && document.documentElement.clientHeight)
-		return document.documentElement.clientHeight;
-	if (document.body) return document.body.clientHeight;
-	return 0;
-}
-
-function getWindowWidth() {
-	if (self.innerWidth) return self.innerWidth;
-	if (document.documentElement && document.documentElement.clientWidth)
-		return document.documentElement.clientWidth;
-	if (document.body) return document.body.clientWidth;
-	return 0;
-}
-
-function resize() {
-	map = document.getElementById("map");
-	map.style.height = getWindowHeight() + "px";
-	map.style.width = getWindowWidth() + "px";
-	if (map.updateSize) { map.updateSize(); };
-}
-
-function addMarker(tilex, tiley) {
-// add a marker for the avatar image at x, y in tile space - these
-// are 48px square
-
-var tilesize = 48;
-markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(tilesize * tilex + (tilesize/2), -1 * tilesize * tiley - (tilesize/2)), icon.clone()));
-}
-
-onresize=function(){ resize(); };
-
-</script>
-
+	<script src="js/script.js"></script>
 </head>
 <body onload="init()">
 
@@ -143,7 +30,7 @@ onresize=function(){ resize(); };
 		fjs.parentNode.insertBefore(js, fjs);
 	}(document, 'script', 'facebook-jssdk'));</script>
 
-	<!-- Modal -->
+	<!-- Modal - lookup -->
 	<div class="modal fade" id="whereAmIBox" tabindex="-1" role="dialog" aria-labelledby="whereAmIBoxLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -151,30 +38,59 @@ onresize=function(){ resize(); };
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					<h4 class="modal-title" id="whereAmIBoxLabel">Look yourself up</h4>
 				</div>
+				<form role="form" id="lookup-form">
+					<div class="modal-body">
+							<div class="form-group">
+								<label for="twitterHandle">What is your twitter handle?</label>
+								<input class="form-control" placeholder="Twitter handle" type="text" name="handle" id="twitterHandle" />
+							</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						<button type="submit" class="btn btn-primary">Go</button>
+					</div>
+				</form>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+	<!-- Modal cant find -->
+	<div class="modal fade" id="cantFindYou" tabindex="-2" role="dialog" aria-labelledby="cantFindYouLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="cantFindYouLabel">We can't find you &gt;_&lt;</h4>
+				</div>
 				<div class="modal-body">
-					Just enter your twitter handle and we'll have a look
+					<p>
+						We couldn't find you. Some images were unable to be
+						processed, you might've got unlucky.  The image itself
+						is also generated from the best available data at the
+						time so it might've been something to do with that.
+					</p>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-primary">Go</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 				</div>
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
 
 	<div id="mediabox">
-		<!-- Button trigger modal -->
-		<button class="btn btn-primary btn-lg" id="btn-findme" data-toggle="modal" data-target="#whereAmIBox">
-			Find me
-		</button>
-
+		<button class="btn btn-primary btn-lg" id="btn-findme" data-toggle="modal" data-target="#whereAmIBox">Find me</button>
 		<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://defected.com/100k/" data-text="We Are 100k" data-via="DefectedRecords" data-hashtags="wearedefected">Tweet</a>
 		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-
 		<div id="fblike">
 			<iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fdefected.com%2F100k%2F&amp;width&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;share=true&amp;height=21&amp;appId=2443221444" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:21px;" allowTransparency="true"></iframe>
 		</div>
 	</div>
+
 	<div id="map"></div>
+
+	<div id="creds">
+		<p>Built with love by <a target="_blank" href="http://u-dox.com/?utm_source=def100k">U-DOX</a> for <a href="http://defected.com/?utm_source=def100k">Defected Records</a></p>
+	</div>
+
 </body>
 </html>
