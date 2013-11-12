@@ -96,7 +96,7 @@ $(document).ready(function() {
 
             if(data) {
                 addMarker(data.xpos, data.ypos);
-                map.setCenter(new OpenLayers.LonLat(48 * data.xpos, -1 * 48 * data.ypos ), 5);
+                map.setCenter(new OpenLayers.LonLat(48 * data.xpos, -1 * 48 * data.ypos ), 6);
             } else {
                 $('#cantFindYou').modal('show');
             }
