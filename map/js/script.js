@@ -90,6 +90,10 @@ onresize=function(){ resize(); };
 $(document).ready(function() {
 
     $('#lookup-form').submit(function (){
+        if($('#twitterHandle').val() == '') {
+            return false;
+        }
+
         $.getJSON('lookup.php', {handle: $('#twitterHandle').val().replace('@', '')}, function(data) {
             $('#whereAmIBox').modal('hide');
             $('#twitterHandle').val('');
