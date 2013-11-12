@@ -90,13 +90,13 @@ onresize=function(){ resize(); };
 $(document).ready(function() {
 
     $('#lookup-form').submit(function (){
-        $.getJSON('lookup.php', {handle: $('#twitterHandle').val()}, function(data) {
+        $.getJSON('lookup.php', {handle: $('#twitterHandle').val().replace('@', '')}, function(data) {
             $('#whereAmIBox').modal('hide');
             $('#twitterHandle').val('');
 
             if(data) {
                 addMarker(data.xpos, data.ypos);
-                map.setCenter((0, 0), 1);
+                map.setCenter(new OpenLayers.LonLat(48 * data.xpos, -1 * 48 * data.ypos ), 5);
             } else {
                 $('#cantFindYou').modal('show');
             }

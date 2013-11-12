@@ -1,4 +1,5 @@
 <?php
+
 include('config.inc.php');
 header('Content-type: application/json');
 $db = new PDO("mysql:host=localhost;dbname=def100k", $user, $passwd);
