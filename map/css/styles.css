@@ -35,7 +35,7 @@ h1 {
     position: absolute;
     top: 5px;
     left: 5px;
-    z-index:100;
+    z-index:1000;
 }
 
 #mediabox {
@@ -46,7 +46,13 @@ h1 {
     height: 50px;
     z-index: 1000;
 }
-
+a {
+    color: #000;
+    text-decoration: underline;
+}
+a:hover {
+    color: #ee1c25;
+}
 #twitter-widget-0 {
     width: 90px;
     float: left;
@@ -54,8 +60,8 @@ h1 {
 .btn-primary {
     background-color: #000;
 }
-.btn-primary:hover {
-    background-color: #bfbfbf;
+.btn-primary:hover, .btn-primary:focus {
+    background-color: #ee1c25;
 }
 #btn-findme {
     width: 100%;
