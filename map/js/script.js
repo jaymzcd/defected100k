@@ -18,7 +18,8 @@ function init() {
         controls: [],
         maxExtent: new OpenLayers.Bounds(  0.0, -14880.0, 15216.0, 0.0 ),
         maxResolution: 64.000000,
-        numZoomLevels: 7
+        numZoomLevels: 7,
+        theme: null
     };
     map = new OpenLayers.Map('map', options);
 
@@ -108,5 +109,7 @@ $(document).ready(function() {
         });
         return false;
     });
+
+$('#OpenLayers.Control.PanZoomBar_113_panup_innerImage').attr('src', 'http://www.openlayers.org/api/2.7/img/south-mini.png');
 
 });
