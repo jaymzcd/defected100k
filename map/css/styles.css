@@ -3,7 +3,7 @@ body { margin: 0; background: #111; }
 h1 { margin: 0; padding: 6px; border:0; font-size: 20pt;  }
 #map { height: 100%; }
 
-#mediabox {
+#btnbox {
     position: absolute;
     top: 20px;
     right: 20px;
@@ -12,8 +12,17 @@ h1 { margin: 0; padding: 6px; border:0; font-size: 20pt;  }
     z-index: 1000;
 }
 
+#mediabox {
+    position: absolute;
+    bottom: 40px;
+    right: 20px;
+    width: 190px;
+    height: 50px;
+    z-index: 1000;
+}
+
 #twitter-widget-0 {
-    width: 110px;
+    width: 90px;
     float: left;
 }
 
@@ -27,7 +36,7 @@ h1 { margin: 0; padding: 6px; border:0; font-size: 20pt;  }
 }
 
 #fblike {
-    width: 110px;
+    width: 70px;
     float: right;
 }
 
@@ -41,11 +50,21 @@ h1 { margin: 0; padding: 6px; border:0; font-size: 20pt;  }
     z-index: 1000;
 }
 
-.footnote {
+.footnote, .comptext {
     font-size: 12px;
     font-style: italic;
     text-align: center;
     color: #333;
+}
+
+.comptext {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.comptweet {
+    width: 110px;
+    margin: 0 auto;
 }
 
 h1, h4, body {
