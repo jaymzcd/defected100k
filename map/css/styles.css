@@ -1,7 +1,24 @@
-html, body { overflow: hidden; padding: 0; height: 100%; width: 100%; font-family: 'Lucida Grande',Geneva,Arial,Verdana,sans-serif; }
-body { margin: 0; background: #111; }
-h1 { margin: 0; padding: 6px; border:0; font-size: 20pt;  }
-#map { height: 100%; }
+html, body {
+    overflow: hidden;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: 'Lucida Grande',Geneva,Arial,Verdana,sans-serif;
+}
+body {
+    margin: 0;
+    background: #fff;
+}
+h1 {
+    margin: 0;
+    padding: 6px;
+    border:0;
+    font-size: 20pt;
+}
+#map {
+    height: 100%;
+    border: solid 1px #0a0a0a;
+}
 
 #btnbox {
     position: absolute;
@@ -10,6 +27,15 @@ h1 { margin: 0; padding: 6px; border:0; font-size: 20pt;  }
     width: 220px;
     height: 50px;
     z-index: 1000;
+}
+#mapcontrol_bg {
+    background: #fff;
+    width: 45px;
+    height: 180px;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    z-index:100;
 }
 
 #mediabox {
@@ -25,7 +51,12 @@ h1 { margin: 0; padding: 6px; border:0; font-size: 20pt;  }
     width: 90px;
     float: left;
 }
-
+.btn-primary {
+    background-color: #000;
+}
+.btn-primary:hover {
+    background-color: #bfbfbf;
+}
 #btn-findme {
     width: 100%;
     margin-bottom: 10px;
