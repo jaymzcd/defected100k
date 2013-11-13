@@ -1,6 +1,6 @@
 html, body { overflow: hidden; padding: 0; height: 100%; width: 100%; font-family: 'Lucida Grande',Geneva,Arial,Verdana,sans-serif; }
 body { margin: 0; background: #111; }
-h1 { margin: 0; padding: 6px; border:0; font-size: 20pt; }
+h1 { margin: 0; padding: 6px; border:0; font-size: 20pt;  }
 #map { height: 100%; }
 
 #mediabox {
@@ -46,4 +46,8 @@ h1 { margin: 0; padding: 6px; border:0; font-size: 20pt; }
     font-style: italic;
     text-align: center;
     color: #333;
+}
+
+h1, h4, body {
+    font-family: "ITCAvantGardeGothW04-Bo 1122872";
 }
