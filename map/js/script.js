@@ -1,7 +1,7 @@
 
 var map;
 var mapBounds = new OpenLayers.Bounds( 0.0, -14880.0, 15216.0, 0.0);
-var mapMinZoom = 0;
+var mapMinZoom = 1;
 var mapMaxZoom = 6;
 
 var markers;
