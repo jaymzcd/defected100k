@@ -4,14 +4,36 @@ var mapBounds = new OpenLayers.Bounds( 0.0, -14880.0, 15216.0, 0.0);
 var mapMinZoom = 1;
 var mapMaxZoom = 6;
 
-var markers;
-var size = new OpenLayers.Size(144, 144);
-var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
-var icon = new OpenLayers.Icon('images/marker.png', size, offset);
+var close_markers;
+var far_markers;
+var close_size = new OpenLayers.Size(144, 144);
+var far_size = new OpenLayers.Size(64, 64);
+var close_offset = new OpenLayers.Pixel(-(close_size.w/2), close_size.h);
+var far_offset = new OpenLayers.Pixel(-(far_size.w/2), far_size.h);
+var close_icon = new OpenLayers.Icon('images/close_marker.png', close_size, close_offset);
+var far_icon = new OpenLayers.Icon('images/far_marker.png', far_size, far_offset);
 
 // avoid pink tiles
 OpenLayers.IMAGE_RELOAD_ATTEMPTS = 3;
 OpenLayers.Util.onImageLoadErrorColor = "transparent";
+
+function zoomChanged(e) {
+    // When we get far enough out we want to show the defected style pins rather
+    // than the encompassing "outline" overlay
+    console.log(e);
+    try {
+        if(e.object.zoom < 3) {
+            far_markers.setVisibility(true);
+            close_markers.setVisibility(false);
+        } else {
+            far_markers.setVisibility(false);
+            close_markers.setVisibility(true);
+        }
+    } catch(err) {
+        console.log(err);
+        // pass
+    }
+}
 
 function init() {
     var options = {
@@ -21,7 +43,13 @@ function init() {
         numZoomLevels: 7,
         theme: null
     };
+
     map = new OpenLayers.Map('map', options);
+    map.getMinZoom = function () {
+        return 1;
+    }
+
+    map.events.register("zoomend", map, zoomChanged);
 
     var layer = new OpenLayers.Layer.TMS( "TMS Layer","",
         {  url: '', serviceVersion: '.', layername: '.', alpha: true,
@@ -34,8 +62,10 @@ function init() {
     map.addControl(new OpenLayers.Control.MouseDefaults());
     map.addControl(new OpenLayers.Control.KeyboardDefaults());
 
-    markers = new OpenLayers.Layer.Markers("Markers");
-    map.addLayer(markers);
+    close_markers = new OpenLayers.Layer.Markers("Markers");
+    map.addLayer(close_markers);
+    far_markers = new OpenLayers.Layer.Markers("Markers");
+    map.addLayer(far_markers);
 }
 
 function overlay_getTileURL(bounds) {
@@ -78,10 +108,16 @@ function addMarker(tilex, tiley) {
     // are 48px square
 
     var tilesize = 48;
-    markers.addMarker(
+    close_markers.addMarker(
         new OpenLayers.Marker(
             new OpenLayers.LonLat(tilesize * tilex + (tilesize/2), -1 * tilesize * tiley - (tilesize/2)),
-            icon.clone()
+            close_icon.clone()
+        )
+    );
+    far_markers.addMarker(
+        new OpenLayers.Marker(
+            new OpenLayers.LonLat(tilesize * tilex + (tilesize/2), -1 * tilesize * tiley - (tilesize/2)),
+            far_icon.clone()
         )
     );
 }
