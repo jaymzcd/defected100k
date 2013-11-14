@@ -24,7 +24,7 @@ h1 {
     position: absolute;
     top: 20px;
     right: 20px;
-    width: 220px;
+    width: 240px;
     height: 50px;
     z-index: 1000;
 }
@@ -66,6 +66,7 @@ a:hover {
 #btn-findme {
     width: 100%;
     margin-bottom: 10px;
+    text-transform: uppercase
 }
 
 .btn, .modal-content {

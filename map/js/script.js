@@ -1,6 +1,6 @@
 
 var map;
-var mapBounds = new OpenLayers.Bounds( 0.0, -14880.0, 15216.0, 0.0);
+var mapBounds = new OpenLayers.Bounds( 0.0, -15072.0, 15216.0, 0.0);
 var mapMinZoom = 1;
 var mapMaxZoom = 6;
 
@@ -38,7 +38,7 @@ function zoomChanged(e) {
 function init() {
     var options = {
         controls: [],
-        maxExtent: new OpenLayers.Bounds(  0.0, -14880.0, 15216.0, 0.0 ),
+        maxExtent: new OpenLayers.Bounds(  0.0, -15072.0, 15216.0, 0.0 ),
         maxResolution: 64.000000,
         numZoomLevels: 7,
         theme: null

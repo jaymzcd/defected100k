@@ -38,7 +38,7 @@ def score(pixel):
     return score
 
 
-def generate(tiles, mask):
+def generate(tiles, mask, offset):
     """
         Generate a giant tiled image to certain specs
     """
@@ -94,6 +94,8 @@ def generate(tiles, mask):
 
         for num, pixel in enumerate(row):
 
+            ypos = row_num + offset
+
             tile_score = score(pixel)
             src_tile, src_name = _get_tile()
 
@@ -113,6 +115,10 @@ def generate(tiles, mask):
                 # If we have dark tiles use black and white version
                 # image = src_tile.convert('L')
 
+            # TODO: HACK!!
+            filename = src_name.replace('avatars/batch1/', '')
+            filename = src_name.replace('avatars/batch2/', '')
+
             # note we are only shifting across! each row is output individually
             # rather than one giant image
             row_image.paste(image, (num * tile_size[0], 0))
@@ -120,14 +126,14 @@ def generate(tiles, mask):
             # easily on the finished map. Note there's
             stmt = """
                 UPDATE images SET xpos=%d, ypos=%d WHERE filename="%s";
-            """ % (num, row_num, src_name.replace('avatars/', ''))
+            """ % (num, ypos, filename)
 
             sql_script.write(stmt)
             cur.execute(stmt)
             con.commit()
             print stmt
 
-        image_name = 'tiles/row_%03d.png' % row_num
+        image_name = 'tiles/row_%03d.png' % ypos
         row_image.save(image_name)
 
         print "Output %s" % image_name
@@ -138,7 +144,7 @@ def generate(tiles, mask):
 
 if __name__ == '__main__':
     # Set our defaults for this project
-    avatar_path = 'avatars/*'
+    avatar_path = 'avatars/batch1'
     mask_path = 'assets/317.png'
 
     # Simple argument parser to handle things a bit more flexibly than sys.argv
@@ -147,7 +153,9 @@ if __name__ == '__main__':
         help='Path to images for use as tiles')
     parser.add_argument('-m', '--mask', dest='mask', action='store', default=mask_path,
        help='Path to source image for mask')
+    parser.add_argument('-o', '--offset', dest='offset', action='store', type=int, default=0,
+       help='Offset for the row positions - use this to import new rows with correct tile coords on the map')
     args = parser.parse_args()
 
     # Lets do it!
-    generate(args.tiles, args.mask)
+    generate('%s/*' % args.tiles, args.mask, args.offset)

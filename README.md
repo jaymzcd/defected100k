@@ -46,3 +46,19 @@ on the [Google site](https://developers.google.com/maps/documentation/javascript
 ### Attempt 2
 
 Using [MapTiler](http://www.maptiler.org/)
+
+## Importing new data
+
+After inserting a new dump of the data from Hugh use a select to insert into the
+amended db with x and y positions:
+
+    insert into def100k.images (select id, username, filename, recevied, created, \N, \N
+        from def100kb.images where created > "2013-11-14");
+
+    Query OK, 1607 rows affected (0.18 sec)
+    Records: 1607  Duplicates: 0  Warnings: 0
+
+Unzip the new avatars to a new folder then run the generate script with a y-offset
+so that rows are calculated & labelled correctly rather than reset.
+
+Then simply montage again and regenerate the new map tiles.
