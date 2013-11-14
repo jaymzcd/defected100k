@@ -7,9 +7,9 @@ var mapMaxZoom = 6;
 var close_markers;
 var far_markers;
 var close_size = new OpenLayers.Size(144, 144);
-var far_size = new OpenLayers.Size(64, 64);
+var far_size = new OpenLayers.Size(63, 100);
 var close_offset = new OpenLayers.Pixel(-(close_size.w/2), -(close_size.h/2));
-var far_offset = new OpenLayers.Pixel(-(far_size.w/2), -(far_size.h/2));
+var far_offset = new OpenLayers.Pixel(-(far_size.w/2), -far_size.h);
 var close_icon = new OpenLayers.Icon('images/close_marker.png', close_size, close_offset);
 var far_icon = new OpenLayers.Icon('images/far_marker.png', far_size, far_offset);
 
